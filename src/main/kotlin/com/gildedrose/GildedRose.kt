@@ -5,10 +5,10 @@ class GildedRose(var items: Array<Item>) {
     fun updateQuality() {
         for (i in items.indices) {
             updateValueForBackstagePasses(items[i])
+            updateValueForAgedBrie(items[i])
+
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                 items[i].quality = degradedQualityFor(items[i])
-            } else {
-                items[i].quality = incrementedQualityFor(items[i])
             }
 
             items[i].sellIn = newSellInValueFor(items[i])
@@ -26,8 +26,16 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
+    private fun updateValueForAgedBrie(item: Item) {
+        if (item.name == "Aged Brie") {
+            item.quality = incrementedQualityFor(item)
+        }
+    }
+
     private fun updateValueForBackstagePasses(item: Item) {
         if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+            item.quality = incrementedQualityFor(item)
+
             if (item.sellIn < 11) {
                 item.quality = incrementedQualityFor(item)
             }
