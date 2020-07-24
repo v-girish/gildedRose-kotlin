@@ -30,9 +30,7 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
 
-            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                items[i].sellIn = items[i].sellIn - 1
-            }
+            items[i].sellIn = newSellInValue(items[i])
 
             if (items[i].sellIn < 0) {
                 if (items[i].name != "Aged Brie") {
@@ -52,6 +50,13 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
+    }
+
+    private fun newSellInValue(item: Item): Int {
+        if (item.name != "Sulfuras, Hand of Ragnaros") {
+            return item.sellIn - 1
+        }
+        return item.sellIn
     }
 
 }
