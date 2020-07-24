@@ -5,11 +5,7 @@ class GildedRose(var items: Array<Item>) {
     fun updateQuality() {
         for (i in items.indices) {
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                if (items[i].quality > 0) {
-                    if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                        items[i].quality = items[i].quality - 1
-                    }
-                }
+                items[i].quality = degradedQualityFor(items[i])
             } else {
                 if (items[i].quality < 50) {
                     items[i].quality = items[i].quality + 1
@@ -30,16 +26,12 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
 
-            items[i].sellIn = newSellInValue(items[i])
+            items[i].sellIn = newSellInValueFor(items[i])
 
             if (items[i].sellIn < 0) {
                 if (items[i].name != "Aged Brie") {
                     if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if (items[i].quality > 0) {
-                            if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-                                items[i].quality = items[i].quality - 1
-                            }
-                        }
+                        items[i].quality = degradedQualityFor(items[i])
                     } else {
                         items[i].quality = items[i].quality - items[i].quality
                     }
@@ -52,11 +44,20 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun newSellInValue(item: Item): Int {
-        if (item.name != "Sulfuras, Hand of Ragnaros") {
-            return item.sellIn - 1
+    private fun degradedQualityFor(an_item: Item): Int {
+        if (an_item.quality > 0) {
+            if (an_item.name != "Sulfuras, Hand of Ragnaros") {
+                return an_item.quality - 1
+            }
         }
-        return item.sellIn
+        return an_item.quality
+    }
+
+    private fun newSellInValueFor(an_item: Item): Int {
+        if (an_item.name != "Sulfuras, Hand of Ragnaros") {
+            return an_item.sellIn - 1
+        }
+        return an_item.sellIn
     }
 
 }
