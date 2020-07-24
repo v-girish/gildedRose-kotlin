@@ -19,16 +19,16 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateQualityForAgedBrie(item: Item) {
         when {
-            item.sellIn > 0 -> incrementQuality(1, item)
-            else -> incrementQuality(2, item)
+            item.sellIn > 0 -> incrementQuality(by = 1, ofItem = item)
+            else -> incrementQuality(by = 2, ofItem = item)
         }
     }
 
     private fun updateQualityForBackstagePasses(item: Item) {
         when {
-            item.sellIn >= 10 -> incrementQuality(1, item)
-            item.sellIn in 5..9 -> incrementQuality(2, item)
-            item.sellIn in 0..4 -> incrementQuality(3, item)
+            item.sellIn >= 10 -> incrementQuality(by = 1, ofItem = item)
+            item.sellIn in 5..9 -> incrementQuality(by = 2, ofItem = item)
+            item.sellIn in 0..4 -> incrementQuality(by = 3, ofItem = item)
             item.sellIn < 0 -> item.quality = 0
         }
     }
@@ -39,8 +39,8 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateQualityForNormalItem(item: Item) {
         when {
-            item.sellIn >= 0 -> decrementQuality(1, item)
-            else -> decrementQuality(2, item)
+            item.sellIn >= 0 -> decrementQuality(by = 1, ofItem = item)
+            else -> decrementQuality(by = 2, ofItem = item)
         }
     }
 
