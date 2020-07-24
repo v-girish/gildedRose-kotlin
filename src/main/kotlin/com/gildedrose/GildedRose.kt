@@ -8,9 +8,7 @@ class GildedRose(var items: Array<Item>) {
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                 items[i].quality = degradedQualityFor(items[i])
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = incrementedQualityFor(items[i])
-                }
+                items[i].quality = incrementedQualityFor(items[i])
             }
 
             items[i].sellIn = newSellInValueFor(items[i])
