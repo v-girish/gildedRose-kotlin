@@ -4,23 +4,19 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            updateValueForBackstagePasses(items[i])
-            updateValueForAgedBrie(items[i])
-
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                 degradeQuality(items[i])
             }
 
             items[i].sellIn = newSellInValueFor(items[i])
+            updateValueForBackstagePasses(items[i])
+            updateValueForAgedBrie(items[i])
 
             if (items[i].sellIn < 0) {
-                updateValueForBackstagePasses(items[i])
                 if (items[i].name != "Aged Brie") {
                     if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                         degradeQuality(items[i])
                     }
-                } else {
-                    incrementQuality(items[i])
                 }
             }
         }
@@ -28,25 +24,27 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateValueForAgedBrie(item: Item) {
         if (item.name == "Aged Brie") {
-            incrementQuality(item)
+            when {
+                item.sellIn > 0 -> incrementQualityOf(item, 1)
+                else -> incrementQualityOf(item, 2)
+            }
         }
     }
 
     private fun updateValueForBackstagePasses(item: Item) {
         if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-            incrementQuality(item)
-
-            if (item.sellIn < 11) {
-                incrementQuality(item)
+            when {
+                item.sellIn >= 10 -> incrementQualityOf(item, 1)
+                item.sellIn in 5..9 -> incrementQualityOf(item, 2)
+                item.sellIn in 0..4 -> incrementQualityOf(item, 3)
+                item.sellIn < 0 -> item.quality = 0
             }
+        }
+    }
 
-            if (item.sellIn < 6) {
-                incrementQuality(item)
-            }
-
-            if (item.sellIn < 0) {
-                item.quality = 0
-            }
+    private fun incrementQualityOf(an_item: Item, increment_by: Int) {
+        if (an_item.quality < 50) {
+            an_item.quality =  an_item.quality + increment_by
         }
     }
 
