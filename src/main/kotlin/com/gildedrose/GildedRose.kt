@@ -4,21 +4,11 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                degradeQuality(items[i])
-            }
+            updateSellInValueFor(items[i])
 
-            items[i].sellIn = newSellInValueFor(items[i])
             updateValueForBackstagePasses(items[i])
             updateValueForAgedBrie(items[i])
-
-            if (items[i].sellIn < 0) {
-                if (items[i].name != "Aged Brie") {
-                    if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-                        degradeQuality(items[i])
-                    }
-                }
-            }
+            updateValueForNormalItem(items[i])
         }
     }
 
@@ -42,31 +32,35 @@ class GildedRose(var items: Array<Item>) {
         }
     }
 
-    private fun incrementQualityOf(an_item: Item, increment_by: Int) {
-        if (an_item.quality < 50) {
-            an_item.quality =  an_item.quality + increment_by
+    private fun incrementQualityOf(anItem: Item, incrementBy: Int) {
+        anItem.quality =  anItem.quality + incrementBy
+        if (anItem.quality > 50) {
+            anItem.quality =  50
         }
     }
 
-    private fun incrementQuality(an_item: Item) {
-        if (an_item.quality < 50) {
-            an_item.quality =  an_item.quality + 1
-        }
-    }
-
-    private fun degradeQuality(an_item: Item) {
-        if (an_item.quality > 0) {
-            if (an_item.name != "Sulfuras, Hand of Ragnaros") {
-                an_item.quality = an_item.quality - 1
+    private fun updateValueForNormalItem(item: Item) {
+        if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" &&
+            item.name != "Sulfuras, Hand of Ragnaros"
+        ) {
+            when {
+                item.sellIn >= 0 -> degradeQualityOf(item, 1)
+                else -> degradeQualityOf(item, 2)
             }
         }
     }
 
-    private fun newSellInValueFor(an_item: Item): Int {
-        if (an_item.name != "Sulfuras, Hand of Ragnaros") {
-            return an_item.sellIn - 1
+    private fun degradeQualityOf(an_item: Item, decrementBy: Int) {
+        an_item.quality = an_item.quality - decrementBy
+        if (an_item.quality < 0) {
+            an_item.quality = 0
         }
-        return an_item.sellIn
+    }
+
+    private fun updateSellInValueFor(an_item: Item) {
+        if (an_item.name != "Sulfuras, Hand of Ragnaros") {
+            an_item.sellIn = an_item.sellIn - 1
+        }
     }
 
 }
