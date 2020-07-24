@@ -4,42 +4,43 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateQuality() {
         for (i in items.indices) {
-            updateSellInValueFor(items[i])
+            val anItem = items[i]
 
-            updateQualityForBackstagePasses(items[i])
-            updateQualityForAgedBrie(items[i])
-            updateQualityForNormalItem(items[i])
+            updateSellInValueFor(anItem)
+
+            when(anItem.name) {
+                "Aged Brie" -> updateQualityForAgedBrie(anItem)
+                "Backstage passes to a TAFKAL80ETC concert" -> updateQualityForBackstagePasses(anItem)
+                "Sulfuras, Hand of Ragnaros" -> updateQualityForSulfuras(anItem)
+                else -> updateQualityForNormalItem(anItem)
+            }
         }
     }
 
     private fun updateQualityForAgedBrie(item: Item) {
-        if (item.name == "Aged Brie") {
-            when {
-                item.sellIn > 0 -> incrementQuality(1, item)
-                else -> incrementQuality(2, item)
-            }
+        when {
+            item.sellIn > 0 -> incrementQuality(1, item)
+            else -> incrementQuality(2, item)
         }
     }
 
     private fun updateQualityForBackstagePasses(item: Item) {
-        if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
-            when {
-                item.sellIn >= 10 -> incrementQuality(1, item)
-                item.sellIn in 5..9 -> incrementQuality(2, item)
-                item.sellIn in 0..4 -> incrementQuality(3, item)
-                item.sellIn < 0 -> item.quality = 0
-            }
+        when {
+            item.sellIn >= 10 -> incrementQuality(1, item)
+            item.sellIn in 5..9 -> incrementQuality(2, item)
+            item.sellIn in 0..4 -> incrementQuality(3, item)
+            item.sellIn < 0 -> item.quality = 0
         }
     }
 
+    private fun updateQualityForSulfuras(item: Item) {
+        item.quality = item.quality
+    }
+
     private fun updateQualityForNormalItem(item: Item) {
-        if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" &&
-            item.name != "Sulfuras, Hand of Ragnaros"
-        ) {
-            when {
-                item.sellIn >= 0 -> decrementQuality(1, item)
-                else -> decrementQuality(2, item)
-            }
+        when {
+            item.sellIn >= 0 -> decrementQuality(1, item)
+            else -> decrementQuality(2, item)
         }
     }
 
