@@ -8,19 +8,15 @@ class GildedRose(var items: Array<Item>) {
                 items[i].quality = degradedQualityFor(items[i])
             } else {
                 if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1
+                    items[i].quality = incrementedQuality(i)
 
                     if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
                         if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
+                            items[i].quality = incrementedQuality(i)
                         }
 
                         if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1
-                            }
+                            items[i].quality = incrementedQuality(i)
                         }
                     }
                 }
@@ -36,12 +32,17 @@ class GildedRose(var items: Array<Item>) {
                         items[i].quality = items[i].quality - items[i].quality
                     }
                 } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1
-                    }
+                    items[i].quality = incrementedQuality(i)
                 }
             }
         }
+    }
+
+    private fun incrementedQuality(i: Int): Int {
+        if (items[i].quality < 50) {
+            return items[i].quality + 1
+        }
+        return items[i].quality
     }
 
     private fun degradedQualityFor(an_item: Item): Int {
