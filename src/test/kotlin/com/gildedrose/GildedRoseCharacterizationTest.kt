@@ -88,6 +88,16 @@ class GildedRoseCharacterizationTest {
     }
 
     @Test
+    fun `should increase the quality by 2 when item is Aged Brie and sellIn date has passed`() {
+        val agedBrie = Item("Aged Brie", -1, 25)
+        val gildedRose = GildedRose(arrayOf(agedBrie))
+
+        gildedRose.updateQuality()
+
+        agedBrie.quality shouldBe 27
+    }
+
+    @Test
     fun `should not increase the quality when item is Aged Brie and quality is equal to 50`() {
         val agedBrie = Item("Aged Brie", 20, 50)
         val gildedRose = GildedRose(arrayOf(agedBrie))
