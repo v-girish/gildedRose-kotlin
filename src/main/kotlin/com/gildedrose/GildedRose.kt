@@ -26,12 +26,11 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateQualityForBackstagePasses(item: Item) {
-        when {
-            item.sellIn >= 10 -> incrementQuality(ofItem = item, by = 1)
-            item.sellIn in 5..9 -> incrementQuality(ofItem = item, by = 2)
-            item.sellIn in 0..4 -> incrementQuality(ofItem = item, by = 3)
-            item.sellIn < 0 -> item.quality = 0
-        }
+        val backstagePassesItem = BackstagePassesItem(item.sellIn, item.quality)
+        backstagePassesItem.updateSellInAndQuality()
+
+        item.sellIn = backstagePassesItem.sellIn
+        item.quality = backstagePassesItem.quality
     }
 
     private fun updateQualityForSulfuras(item: Item) {
@@ -60,7 +59,8 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateSellInValueFor(anItem: Item) {
-        if (anItem.name != "Sulfuras, Hand of Ragnaros" && anItem.name != "Aged Brie") {
+        if (anItem.name != "Sulfuras, Hand of Ragnaros" && anItem.name != "Aged Brie" &&
+            anItem.name != "Backstage passes to a TAFKAL80ETC concert") {
             anItem.sellIn = anItem.sellIn - 1
         }
     }
