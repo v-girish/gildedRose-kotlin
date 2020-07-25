@@ -6,8 +6,6 @@ class GildedRose(var items: Array<Item>) {
         for (i in items.indices) {
             val anItem = items[i]
 
-            updateSellInValueFor(anItem)
-
             when(anItem.name) {
                 "Aged Brie" -> updateQualityForAgedBrie(anItem)
                 "Backstage passes to a TAFKAL80ETC concert" -> updateQualityForBackstagePasses(anItem)
@@ -42,23 +40,17 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateQualityForNormalItem(item: Item) {
-        when {
-            item.sellIn >= 0 -> decrementQuality(ofItem = item, by = 1)
-            else -> decrementQuality(ofItem = item, by = 2)
-        }
+        val normalItem = NormalItem(item.sellIn, item.quality)
+        normalItem.updateSellInAndQuality()
+
+        item.sellIn = normalItem.sellIn
+        item.quality = normalItem.quality
     }
 
     private fun decrementQuality(ofItem: Item, by: Int) {
         ofItem.quality = ofItem.quality - by
         if (ofItem.quality < 0) {
             ofItem.quality = 0
-        }
-    }
-
-    private fun updateSellInValueFor(anItem: Item) {
-        if (anItem.name != "Sulfuras, Hand of Ragnaros" && anItem.name != "Aged Brie" &&
-            anItem.name != "Backstage passes to a TAFKAL80ETC concert") {
-            anItem.sellIn = anItem.sellIn - 1
         }
     }
 
