@@ -19,16 +19,16 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateQualityForAgedBrie(item: Item) {
         when {
-            item.sellIn > 0 -> incrementQuality(by = 1, ofItem = item)
-            else -> incrementQuality(by = 2, ofItem = item)
+            item.sellIn > 0 -> incrementQuality(ofItem = item, by = 1)
+            else -> incrementQuality(ofItem = item, by = 2)
         }
     }
 
     private fun updateQualityForBackstagePasses(item: Item) {
         when {
-            item.sellIn >= 10 -> incrementQuality(by = 1, ofItem = item)
-            item.sellIn in 5..9 -> incrementQuality(by = 2, ofItem = item)
-            item.sellIn in 0..4 -> incrementQuality(by = 3, ofItem = item)
+            item.sellIn >= 10 -> incrementQuality(ofItem = item, by = 1)
+            item.sellIn in 5..9 -> incrementQuality(ofItem = item, by = 2)
+            item.sellIn in 0..4 -> incrementQuality(ofItem = item, by = 3)
             item.sellIn < 0 -> item.quality = 0
         }
     }
@@ -39,19 +39,19 @@ class GildedRose(var items: Array<Item>) {
 
     private fun updateQualityForNormalItem(item: Item) {
         when {
-            item.sellIn >= 0 -> decrementQuality(by = 1, ofItem = item)
-            else -> decrementQuality(by = 2, ofItem = item)
+            item.sellIn >= 0 -> decrementQuality(ofItem = item, by = 1)
+            else -> decrementQuality(ofItem = item, by = 2)
         }
     }
 
-    private fun incrementQuality(by: Int, ofItem: Item) {
+    private fun incrementQuality(ofItem: Item, by: Int) {
         ofItem.quality =  ofItem.quality + by
         if (ofItem.quality > 50) {
             ofItem.quality =  50
         }
     }
 
-    private fun decrementQuality(by: Int, ofItem: Item) {
+    private fun decrementQuality(ofItem: Item, by: Int) {
         ofItem.quality = ofItem.quality - by
         if (ofItem.quality < 0) {
             ofItem.quality = 0
