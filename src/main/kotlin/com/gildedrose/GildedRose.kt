@@ -34,20 +34,17 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateQualityForSulfuras(item: Item) {
-        item.quality = item.quality
+        val sulfrusItem = SulfrusItem(item.sellIn, item.quality)
+        sulfrusItem.updateSellInAndQuality()
+
+        item.sellIn = sulfrusItem.sellIn
+        item.quality = sulfrusItem.quality
     }
 
     private fun updateQualityForNormalItem(item: Item) {
         when {
             item.sellIn >= 0 -> decrementQuality(ofItem = item, by = 1)
             else -> decrementQuality(ofItem = item, by = 2)
-        }
-    }
-
-    private fun incrementQuality(ofItem: Item, by: Int) {
-        ofItem.quality =  ofItem.quality + by
-        if (ofItem.quality > 50) {
-            ofItem.quality =  50
         }
     }
 
