@@ -47,12 +47,5 @@ class GildedRose(var items: Array<Item>) {
         item.quality = normalItem.quality
     }
 
-    private fun decrementQuality(ofItem: Item, by: Int) {
-        ofItem.quality = ofItem.quality - by
-        if (ofItem.quality < 0) {
-            ofItem.quality = 0
-        }
-    }
-
 }
 
