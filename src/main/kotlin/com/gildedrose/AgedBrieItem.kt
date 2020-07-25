@@ -1,7 +1,7 @@
 package com.gildedrose
 
 
-class AgedBrieItem(sellIn: Int, quality: Int): Item("Aged Brie", sellIn, quality) {
+class AgedBrieItem(sellIn: Int, quality: Int): Item(NAME, sellIn, quality) {
 
     override fun updateSellInAndQuality() {
         this.sellIn -=  1
@@ -13,6 +13,10 @@ class AgedBrieItem(sellIn: Int, quality: Int): Item("Aged Brie", sellIn, quality
         if (this.quality > 50) {
             this.quality =  50
         }
+    }
+
+    companion object {
+        const val NAME = "Aged Brie"
     }
 
 }

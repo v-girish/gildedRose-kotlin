@@ -1,7 +1,7 @@
 package com.gildedrose
 
 
-class BackstagePassesItem(sellIn: Int, quality: Int): Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) {
+class BackstagePassesItem(sellIn: Int, quality: Int): Item(NAME, sellIn, quality) {
 
     override fun updateSellInAndQuality() {
         this.sellIn -=  1
@@ -16,5 +16,9 @@ class BackstagePassesItem(sellIn: Int, quality: Int): Item("Backstage passes to 
         if (this.quality > 50) {
             this.quality =  50
         }
+    }
+
+    companion object {
+        const val NAME = "Backstage passes to a TAFKAL80ETC concert"
     }
 }
