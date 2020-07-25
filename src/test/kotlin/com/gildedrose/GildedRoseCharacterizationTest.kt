@@ -8,7 +8,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should not degrade the quality given item is Sulfuras and sell by date is in 20 days`() {
-        val sulfuras = ItemFactory.getItemOf("Sulfuras, Hand of Ragnaros", 20, 80)
+        val sulfuras = ItemFactory.getItemWith("Sulfuras, Hand of Ragnaros", 20, 80)
         val gildedRose = GildedRose(arrayOf(sulfuras))
 
         gildedRose.updateQuality()
@@ -18,7 +18,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should not degrade the quality given item is Sulfuras and sell by date was 1 day ago`() {
-        val sulfuras = ItemFactory.getItemOf("Sulfuras, Hand of Ragnaros", -1, 80)
+        val sulfuras = ItemFactory.getItemWith("Sulfuras, Hand of Ragnaros", -1, 80)
         val gildedRose = GildedRose(arrayOf(sulfuras))
 
         gildedRose.updateQuality()
@@ -28,7 +28,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should not decrease the sell in date given item is Sulfuras`() {
-        val sulfuras = ItemFactory.getItemOf("Sulfuras, Hand of Ragnaros", 20, 80)
+        val sulfuras = ItemFactory.getItemWith("Sulfuras, Hand of Ragnaros", 20, 80)
         val gildedRose = GildedRose(arrayOf(sulfuras))
 
         gildedRose.updateQuality()
@@ -38,7 +38,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should degrade the quality by 1 given item is a normal item and sell by date is in 20 days`() {
-        val normalItem = ItemFactory.getItemOf("Not a special Item", 20, 25)
+        val normalItem = ItemFactory.getItemWith("Not a special Item", 20, 25)
         val gildedRose = GildedRose(arrayOf(normalItem))
 
         gildedRose.updateQuality()
@@ -48,7 +48,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should degrade the quality by 2 given item is a normalItem and sell by date was 2 days ago`() {
-        val normalItem = ItemFactory.getItemOf("Not a special Item", -2, 25)
+        val normalItem = ItemFactory.getItemWith("Not a special Item", -2, 25)
         val gildedRose = GildedRose(arrayOf(normalItem))
 
         gildedRose.updateQuality()
@@ -58,7 +58,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should not degrade the quality given item is a normalItem and quality is already zero`() {
-        val normalItem = ItemFactory.getItemOf("Not a special Item", 20, 0)
+        val normalItem = ItemFactory.getItemWith("Not a special Item", 20, 0)
         val gildedRose = GildedRose(arrayOf(normalItem))
 
         gildedRose.updateQuality()
@@ -68,7 +68,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should decrease the sellIn date by 1 given item is a normalItem`() {
-        val normalItem = ItemFactory.getItemOf("Not a special Item", 20, 25)
+        val normalItem = ItemFactory.getItemWith("Not a special Item", 20, 25)
         val gildedRose = GildedRose(arrayOf(normalItem))
 
         gildedRose.updateQuality()
@@ -79,7 +79,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should increase the quality by 1 when item is Aged Brie`() {
-        val agedBrie = ItemFactory.getItemOf("Aged Brie", 20, 25)
+        val agedBrie = ItemFactory.getItemWith("Aged Brie", 20, 25)
         val gildedRose = GildedRose(arrayOf(agedBrie))
 
         gildedRose.updateQuality()
@@ -89,7 +89,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should increase the quality by 2 when item is Aged Brie and sellIn date has passed`() {
-        val agedBrie = ItemFactory.getItemOf("Aged Brie", -1, 25)
+        val agedBrie = ItemFactory.getItemWith("Aged Brie", -1, 25)
         val gildedRose = GildedRose(arrayOf(agedBrie))
 
         gildedRose.updateQuality()
@@ -99,7 +99,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should not increase the quality when item is Aged Brie and quality is equal to 50`() {
-        val agedBrie = ItemFactory.getItemOf("Aged Brie", 20, 50)
+        val agedBrie = ItemFactory.getItemWith("Aged Brie", 20, 50)
         val gildedRose = GildedRose(arrayOf(agedBrie))
 
         gildedRose.updateQuality()
@@ -109,7 +109,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should decrease the sellIn date by 1 given item is Aged Brie`() {
-        val agedBrie = ItemFactory.getItemOf("Aged Brie", 20, 25)
+        val agedBrie = ItemFactory.getItemWith("Aged Brie", 20, 25)
         val gildedRose = GildedRose(arrayOf(agedBrie))
 
         gildedRose.updateQuality()
@@ -119,7 +119,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should increase the quality by 1 when item is Backstage passes and sellIn date is more than 10 days away`() {
-        val backstagePasses = ItemFactory.getItemOf("Backstage passes to a TAFKAL80ETC concert", 11, 25)
+        val backstagePasses = ItemFactory.getItemWith("Backstage passes to a TAFKAL80ETC concert", 11, 25)
         val gildedRose = GildedRose(arrayOf(backstagePasses))
 
         gildedRose.updateQuality()
@@ -129,7 +129,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should increase the quality by 2 when item is Backstage passes and sellIn date is in less than 10 days but greater than 5 days`() {
-        val backstagePasses = ItemFactory.getItemOf("Backstage passes to a TAFKAL80ETC concert", 9, 25)
+        val backstagePasses = ItemFactory.getItemWith("Backstage passes to a TAFKAL80ETC concert", 9, 25)
         val gildedRose = GildedRose(arrayOf(backstagePasses))
 
         gildedRose.updateQuality()
@@ -139,7 +139,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should increase the quality by 3 when item is Backstage passes and sellIn date is less than 5 days away`() {
-        val backstagePasses = ItemFactory.getItemOf("Backstage passes to a TAFKAL80ETC concert", 4, 25)
+        val backstagePasses = ItemFactory.getItemWith("Backstage passes to a TAFKAL80ETC concert", 4, 25)
         val gildedRose = GildedRose(arrayOf(backstagePasses))
 
         gildedRose.updateQuality()
@@ -149,7 +149,7 @@ class GildedRoseCharacterizationTest {
 
     @Test
     fun `should drop the quality to 0 when item is Backstage passes and sellIn date is today`() {
-        val backstagePasses = ItemFactory.getItemOf("Backstage passes to a TAFKAL80ETC concert", 0, 25)
+        val backstagePasses = ItemFactory.getItemWith("Backstage passes to a TAFKAL80ETC concert", 0, 25)
         val gildedRose = GildedRose(arrayOf(backstagePasses))
 
         gildedRose.updateQuality()
