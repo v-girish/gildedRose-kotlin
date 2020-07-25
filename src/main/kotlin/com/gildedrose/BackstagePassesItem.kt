@@ -3,7 +3,7 @@ package com.gildedrose
 
 class BackstagePassesItem(sellIn: Int, quality: Int): Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality) {
 
-    fun updateSellInAndQuality() {
+    override fun updateSellInAndQuality() {
         this.sellIn -=  1
 
         when {

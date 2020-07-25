@@ -3,7 +3,7 @@ package com.gildedrose
 
 class AgedBrieItem(sellIn: Int, quality: Int): Item("Aged Brie", sellIn, quality) {
 
-    fun updateSellInAndQuality() {
+    override fun updateSellInAndQuality() {
         this.sellIn -=  1
         when {
             this.sellIn > 0 -> this.quality += 1
